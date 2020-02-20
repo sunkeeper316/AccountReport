@@ -1,23 +1,30 @@
-//
-//  AppDelegate.swift
-//  AccountReport
-//
-//  Created by 黃德桑 on 2019/11/22.
-//  Copyright © 2019 sun. All rights reserved.
-//
+
 
 import UIKit
 import CoreData
+import Firebase
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+
+        FirebaseApp.configure()
+        
         return true
+    }
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        var result = true
+        
+        if (url.absoluteString.range(of: "facebook") != nil){
+            result = ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation])
+        }
+        return result
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
