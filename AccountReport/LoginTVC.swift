@@ -4,14 +4,48 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 
-class LoginTVC: UITableViewController ,LoginButtonDelegate{
-    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
-        fetchProfile()
-    }
+class LoginTVC: UITableViewController {
     
-    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+    @IBOutlet weak var btFBLogin: FBLoginButton!
+    var fbLongin : LoginManager?
+    
+    
+    @IBOutlet weak var tfId: UITextField!
+    @IBOutlet weak var tfPassword: UITextField!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let firebaseAuth = Auth.auth()
+        fbLongin = LoginManager()
+        
+//        do {
+//          try firebaseAuth.signOut()
+//        } catch let signOutError as NSError {
+//          print ("Error signing out: %@", signOutError)
+//        }
+        print()
+        print("firebaseAuth.currentUser\(firebaseAuth.currentUser?.uid ?? "")")
+        btFBLogin.setTitle("FB Login", for: .normal)
+        if AccessToken.current != nil {
+            print("tokenString: \(AccessToken.current!.tokenString)")
+            AccessToken.current = nil
+            
+            fbLongin?.logOut()
+        }
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+    }
+//    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+//
+//        print("LoginManager.self")
+////        fetchProfile()
+//    }
+    
+//    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+//
+//    }
     func fetchProfile(){
         print("attempt to fetch profile......")
         
@@ -51,14 +85,25 @@ class LoginTVC: UITableViewController ,LoginButtonDelegate{
             }
         })
     }
-    
-    @IBOutlet weak var tfId: UITextField!
-    @IBOutlet weak var tfPassword: UITextField!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    @IBAction func clickFBLogin(_ sender: FBButton) {
+        print("FB")
+        fbLongin = LoginManager()
+        fbLongin?.logIn(permissions: ["public_profile", "email"], from: self, handler: { (result, error) in
+            if error == nil {
+                if result != nil && !result!.isCancelled {
+                    print("Login")
+                    let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+                    Auth.auth().signIn(with: credential) { (user, error) in
+                        print("signIn")
+//                        user?.user.uid
+                        print(user?.user.uid.description)
+                    }
+                }
+            }else{
+                print(error!.localizedDescription)
+            }
+        })
     }
-    
     @IBAction func clickLogin(_ sender: Any) {
         checkAccount()
     }

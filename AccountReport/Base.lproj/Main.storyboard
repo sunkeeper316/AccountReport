@@ -899,13 +899,25 @@
                                                         <action selector="clickDirect:" destination="cCi-0U-oca" eventType="touchUpInside" id="EbJ-We-CVF"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O67-ye-jFu" customClass="FBSDKButton">
+                                                    <rect key="frame" x="157" y="90" width="100" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="RUq-UD-k9E"/>
+                                                    </constraints>
+                                                    <state key="normal" title="FB"/>
+                                                    <connections>
+                                                        <action selector="clickFBLogin:" destination="cCi-0U-oca" eventType="touchUpInside" id="mEI-9A-Tap"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="UBb-iW-sXX" firstAttribute="centerY" secondItem="X1h-U3-AXF" secondAttribute="centerY" id="F4X-kn-JKc"/>
+                                                <constraint firstAttribute="bottom" secondItem="O67-ye-jFu" secondAttribute="bottom" id="TQg-tb-aOC"/>
                                                 <constraint firstItem="qkN-Nc-puT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UBb-iW-sXX" secondAttribute="trailing" constant="8" symbolic="YES" id="jdZ-2c-n58"/>
                                                 <constraint firstItem="qkN-Nc-puT" firstAttribute="centerX" secondItem="X1h-U3-AXF" secondAttribute="centerX" id="kCh-JI-nQW"/>
                                                 <constraint firstItem="qkN-Nc-puT" firstAttribute="centerY" secondItem="X1h-U3-AXF" secondAttribute="centerY" id="lO5-R7-HbE"/>
                                                 <constraint firstItem="p7C-eg-iIy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qkN-Nc-puT" secondAttribute="trailing" constant="8" symbolic="YES" id="lqc-qB-vPw"/>
+                                                <constraint firstItem="O67-ye-jFu" firstAttribute="centerX" secondItem="X1h-U3-AXF" secondAttribute="centerX" id="md4-h2-QfJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="p7C-eg-iIy" secondAttribute="trailing" constant="40" id="szg-R6-lqi"/>
                                                 <constraint firstItem="UBb-iW-sXX" firstAttribute="leading" secondItem="X1h-U3-AXF" secondAttribute="leading" constant="40" id="xBe-4l-rnF"/>
                                                 <constraint firstItem="p7C-eg-iIy" firstAttribute="centerY" secondItem="X1h-U3-AXF" secondAttribute="centerY" id="y91-JF-WUH"/>
@@ -921,6 +933,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="btFBLogin" destination="O67-ye-jFu" id="C9o-La-LxG"/>
                         <outlet property="tfId" destination="DCM-6A-Zwv" id="ES5-rC-DAC"/>
                         <outlet property="tfPassword" destination="QZ8-Y4-j6J" id="qsG-mP-Rgl"/>
                     </connections>
